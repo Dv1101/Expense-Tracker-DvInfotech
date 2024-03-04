@@ -1,7 +1,21 @@
-using Expense_Tracker.Models;
+﻿using Expense_Tracker.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Culture - localization
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new List<CultureInfo> { new CultureInfo("en-IN") };
+
+    options.DefaultRequestCulture = new RequestCulture("en-IN");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -32,6 +46,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 app.Run();
